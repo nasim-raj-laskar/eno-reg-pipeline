@@ -1,3 +1,327 @@
-<h1>{{prediction}} </h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wine Quality Prediction Result</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-{{prediction}}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .result-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 50px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .result-title {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .quality-score {
+            font-size: 5rem;
+            font-weight: bold;
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 20px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .quality-excellent {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        .quality-good {
+            background: linear-gradient(135deg, #43e97b, #38f9d7);
+        }
+
+        .quality-average {
+            background: linear-gradient(135deg, #fa709a, #fee140);
+        }
+
+        .quality-poor {
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+        }
+
+        .quality-bad {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        }
+
+        .quality-description {
+            font-size: 1.3rem;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .quality-details {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .quality-details h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .quality-details p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .stars {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin: 20px 0;
+            font-size: 2rem;
+        }
+
+        .star {
+            color: #ddd;
+            transition: color 0.3s ease;
+        }
+
+        .star.filled {
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .result-container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            .result-title {
+                font-size: 2rem;
+            }
+            
+            .quality-score {
+                font-size: 3.5rem;
+                padding: 20px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <div class="result-icon">
+            <i class="fas fa-wine-glass-alt"></i>
+        </div>
+        
+        <h1 class="result-title">Wine Quality Prediction</h1>
+        
+        <div class="quality-score" id="qualityScore">
+            {{ prediction }}
+        </div>
+        
+        <div class="stars" id="starRating">
+            <span class="star"><i class="fas fa-star"></i></span>
+            <span class="star"><i class="fas fa-star"></i></span>
+            <span class="star"><i class="fas fa-star"></i></span>
+            <span class="star"><i class="fas fa-star"></i></span>
+            <span class="star"><i class="fas fa-star"></i></span>
+        </div>
+        
+        <div class="quality-description" id="qualityDescription">
+            <!-- Will be populated by JavaScript -->
+        </div>
+        
+        <div class="quality-details" id="qualityDetails">
+            <!-- Will be populated by JavaScript -->
+        </div>
+        
+        <div class="action-buttons">
+            <a href="/" class="btn btn-primary">
+                <i class="fas fa-arrow-left"></i>
+                New Prediction
+            </a>
+            <a href="/train" class="btn btn-secondary">
+                <i class="fas fa-cogs"></i>
+                Retrain Model
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Get the prediction value
+        const prediction = parseFloat(document.getElementById('qualityScore').textContent.trim());
+        const qualityScore = document.getElementById('qualityScore');
+        const qualityDescription = document.getElementById('qualityDescription');
+        const qualityDetails = document.getElementById('qualityDetails');
+        const stars = document.querySelectorAll('.star');
+        
+        // Determine quality level and styling
+        let qualityLevel, description, details, className;
+        
+        if (prediction >= 7) {
+            qualityLevel = "Excellent";
+            description = "Outstanding wine quality! This wine exhibits exceptional characteristics and would be highly rated by wine enthusiasts.";
+            details = "<h3>🏆 Premium Quality</h3><p>This wine demonstrates superior balance, complexity, and refinement. Perfect for special occasions and wine connoisseurs.</p>";
+            className = "quality-excellent";
+        } else if (prediction >= 6) {
+            qualityLevel = "Good";
+            description = "Good quality wine with pleasant characteristics. A solid choice that would satisfy most wine drinkers.";
+            details = "<h3>✨ Good Quality</h3><p>Well-balanced wine with good flavor profile. Suitable for casual drinking and pairs well with various foods.</p>";
+            className = "quality-good";
+        } else if (prediction >= 5) {
+            qualityLevel = "Average";
+            description = "Average quality wine. Decent for everyday consumption but may lack some complexity.";
+            details = "<h3>📊 Average Quality</h3><p>Standard wine quality with basic characteristics. Good for everyday meals and casual occasions.</p>";
+            className = "quality-average";
+        } else if (prediction >= 4) {
+            qualityLevel = "Below Average";
+            description = "Below average quality. This wine may have some noticeable flaws or imbalances.";
+            details = "<h3>⚠️ Below Average</h3><p>Wine quality could be improved. May have some off-flavors or lack proper balance in its chemical composition.</p>";
+            className = "quality-poor";
+        } else {
+            qualityLevel = "Poor";
+            description = "Poor quality wine with significant issues. Not recommended for consumption.";
+            details = "<h3>❌ Poor Quality</h3><p>Significant quality issues detected. This wine may have serious flaws and is not suitable for consumption.</p>";
+            className = "quality-bad";
+        }
+        
+        // Apply styling
+        qualityScore.className = `quality-score ${className}`;
+        qualityDescription.textContent = description;
+        qualityDetails.innerHTML = details;
+        
+        // Fill stars based on quality
+        const starCount = Math.min(5, Math.max(1, Math.round(prediction)));
+        for (let i = 0; i < starCount; i++) {
+            stars[i].classList.add('filled');
+        }
+        
+        // Add quality level indicator
+        const qualityIndicator = document.createElement('div');
+        qualityIndicator.style.cssText = `
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-top: 10px;
+        `;
+        qualityIndicator.textContent = qualityLevel;
+        qualityScore.appendChild(qualityIndicator);
+    </script>
+</body>
+</html>

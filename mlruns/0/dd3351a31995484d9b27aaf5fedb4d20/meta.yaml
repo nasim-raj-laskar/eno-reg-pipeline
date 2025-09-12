@@ -1,0 +1,15 @@
+artifact_uri: file:///X:/nasim_xhqpjmy/Code/MLops/ETE-project-1/datascienceproject/mlruns/0/dd3351a31995484d9b27aaf5fedb4d20/artifacts
+end_time: 1757682573749
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: dd3351a31995484d9b27aaf5fedb4d20
+run_name: spiffy-bat-425
+run_uuid: dd3351a31995484d9b27aaf5fedb4d20
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757682568209
+status: 3
+tags: []
+user_id: nasim_xhqpjmy
