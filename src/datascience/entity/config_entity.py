@@ -26,9 +26,13 @@ class ModelTrainerConfig:
     train_data_path: Path
     test_data_path: Path
     model_name: str
-    alpha: float
-    l1_ratio: float
     target_column: str
+    elasticnet_params: dict
+    random_forest_params: dict
+    xgboost_params: dict
+    cv_folds: int
+    scoring: str
+    random_state: int
 
 @dataclass
 class ModelEvaluationConfig:

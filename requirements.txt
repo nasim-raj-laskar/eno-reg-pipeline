@@ -4,7 +4,9 @@ jupyter
 notebook
 numpy
 scikit-learn
+xgboost
 matplotlib
+seaborn
 python-box
 PyYAML
 tqdm
@@ -13,3 +15,4 @@ joblib
 types-PyYAML
 Flask
 Flask-Cors
+optuna

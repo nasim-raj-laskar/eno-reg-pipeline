@@ -51,8 +51,8 @@ class ConfigurationManager:
     
     def get_model_trainer_config(self) -> ModelTrainerConfig:
         config = self.config.model_trainer
-        params = self.params.ElasticNet
         schema = self.schema.TARGET_COLUMN
+        model_selection = self.params.model_selection
 
         create_directories([config.root_dir])
 
@@ -61,9 +61,13 @@ class ConfigurationManager:
             train_data_path=config.train_data_path,
             test_data_path=config.test_data_path,
             model_name=config.model_name,
-            alpha=params.alpha,
-            l1_ratio=params.l1_ratio,
-            target_column=schema.name
+            target_column=schema.name,
+            elasticnet_params=self.params.ElasticNet,
+            random_forest_params=self.params.RandomForest,
+            xgboost_params=self.params.XGBoost,
+            cv_folds=model_selection.cv_folds,
+            scoring=model_selection.scoring,
+            random_state=model_selection.random_state
         )
         return model_trainer_config
     
