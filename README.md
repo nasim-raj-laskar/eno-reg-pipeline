@@ -4,9 +4,8 @@
 **Heterogeneous ensemble ML pipeline** implementing automated hyperparameter optimization via exhaustive grid search across regularized linear (ElasticNet), bagging (RandomForest), and gradient boosting (XGBoost) regressors. Employs stratified k-fold cross-validation (k=5) with negative MSE objective for model selection.
 
 ## ETL & Training Pipeline
-```
-Data Ingestion → Schema Validation → Feature Engineering → Ensemble Training → Model Selection → Inference Deployment
-```
+![Model Performance Dashboard](artifacts/model_evaluation/flow.png)
+
 
 ## Technical Implementation
 - **Regressors**: ElasticNet (L1/L2 elastic regularization), RandomForest (bootstrap aggregating), XGBoost (gradient tree boosting)
