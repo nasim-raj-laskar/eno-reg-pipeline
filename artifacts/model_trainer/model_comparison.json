@@ -1,0 +1,37 @@
+{
+  "ElasticNet": {
+    "best_params": {
+      "alpha": 0.01,
+      "l1_ratio": 0.1
+    },
+    "cv_score": -0.4412235287327736,
+    "test_mse": 0.4024768533692669,
+    "test_r2": 0.3528725815328688,
+    "test_mae": 0.5026204213058697
+  },
+  "best_model": "XGBoost",
+  "RandomForest": {
+    "best_params": {
+      "max_depth": 20,
+      "min_samples_leaf": 1,
+      "min_samples_split": 2,
+      "n_estimators": 300
+    },
+    "cv_score": -0.3652800350414814,
+    "test_mse": 0.34155920477812596,
+    "test_r2": 0.4508197810845018,
+    "test_mae": 0.41608895233939064
+  },
+  "XGBoost": {
+    "best_params": {
+      "learning_rate": 0.01,
+      "max_depth": 10,
+      "n_estimators": 300,
+      "subsample": 0.8
+    },
+    "cv_score": -0.3717202186584473,
+    "test_mse": 0.33358627557754517,
+    "test_r2": 0.46363914012908936,
+    "test_mae": 0.4094502329826355
+  }
+}
