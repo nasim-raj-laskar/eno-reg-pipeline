@@ -35,6 +35,15 @@ python app.py
 ## Model Selection Algorithm
 Automated model selection via test set MSE minimization. Serialized results in `artifacts/model_trainer/model_comparison.json` containing cross-validation statistics and optimal hyperparameter configurations.
 
+## Performance Visualization
+```bash
+# Generate comprehensive model analytics dashboard
+python visualize_model_performance.py
+```
+**Analytical Components**: Comparative performance metrics, residual analysis, feature importance ranking, prediction distribution analysis, cross-validation score visualization, actual vs predicted scatter plots with R² correlation coefficients.
+
+![Model Performance Dashboard](artifacts/model_evaluation/performance_dashboard.png)
+
 ## REST API Specification
 - `GET /`: Frontend interface
 - `POST /predict`: Feature vector ingestion → quality prediction [0,10]
