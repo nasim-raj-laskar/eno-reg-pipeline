@@ -5,7 +5,7 @@
 
 ## ETL & Training Pipeline
 <p align="center">
-  <img src="artifacts/model_evaluation/Flow.png" alt="Model Performance Dashboard" width="500"/>
+  <img src="artifacts/model_evaluation/flow.png" alt="Model Performance Dashboard" width="500"/>
 </p>
 
 ## Technical Implementation
